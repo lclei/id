@@ -6,33 +6,35 @@ using std::string;
 
 int main()
 {
-    cout << "Input 17 numbers of your ID!" << endl;
-    string qian17;
-    int xishu[17] = {7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2};
-    string jiaoyan="10X987654321";
-    int temp=0;int yushu=0;
-    int i=0;int num=0;
-    cin>>qian17;
-    if(qian17.size()!=17)
-    cout<<"There is "<<qian17.size()<<"numbers, please check!"<<endl;
+    const int contentSize = 17;
+    const int factor[] = {7,9,10,5,8,4,2,1,6,3,7,9,10,5,8,4,2};
+    const string outString = "10X987654321";
+    string idContent;
+    int i=0;
+    int num=0;
+    int sum=0;
 
-    for(i=0;i<17;i++)
+    /// get input ///
+    cout << "Please input first 17 numbers of your ID:" << endl;
+    cin >> idContent;
+    if(idContent.size() != contentSize)
+    cout << "There is " << idContent.size() << "numbers, please check!" << endl;
+
+    /// calculate: sumof(content[i]*factor[i])%11 ///
+    for (i=0; i<contentSize; i++)
     {
-        if(qian17[i]<48||qian17[i]>57)
+        if (idContent[i] < '0' || idContent[i] > '9')
         {
-            cout<<"Input ERROR, Please Check!"<<endl;
+            cout << "Input ERROR, Please Check!" << endl;
             return 0;
         }
-        num=qian17[i]-48;
-        temp=temp+num*xishu[i];
+        num = idContent[i] - '0';
+        sum = sum + num * factor[i];
     }
-    yushu=temp%11;
+
+    /// output ///
     cout << "The last bit is:" << endl;
-    cout << jiaoyan[yushu]<< endl;
-    system("pause");
-
-
+    cout << outString[sum % 11] << endl;
 
     return 0;
-
 }
